@@ -1,0 +1,112 @@
+
+#******************** Settings ************************
+
+*** Settings ***
+
+# TODO: Write Documentation e.g. User Registration Test scenario with verification, valid and invalid credentials.
+
+Documentation	Testing the User registration. Verifying that users can successfully register with valid
+				information and handle various negative scenarios.
+
+# TODO: Write Precondition, Postcondition, Tags
+
+Pre Condition	Open Browser
+Post Condition	Close Browser
+Tags	Registration
+
+#******************* Common Variables ********************
+
+*** Variables ***
+
+# NOTE: Please Remove your login credential before uploading Assignments
+
+# TODO: Write Registration field variables
+
+LoginUrl = https://gitlab.com/users/sign_up
+First_name = Jasper
+Last_name = Huhtala
+UserName = TestingProject
+TestEmail = TestingProject@example.com
+
+Invalid_Username = David
+Invalid_password = "*****"
+Invalid_Email = TestingProject.com
+Empty = 
+
+#******************** Test Cases *************************
+
+*** Test Case ***
+
+# TODO: Write Positive and Negative Test Cases and Test Process steps (Think about possible test cases)
+
+# Positive Test examples are below write test process steps for each below test case
+
+	Register user with valid username and password 
+	- Remember credentials which you are going to use for whole application testing
+	- Input:
+		- Valid First name:	Jasper
+		- Valid Last name:	Huhtala
+		- Valid Username:	e.g (TestingProject)
+		- Valid Email:	(TestingProject@example.com)
+		- Valid Password:	e.g ("********")
+	Expected result: Registration success and reroutes to Identity verification browser
+
+	- Test steps:
+		1. Open gitlab LoginUrl in browser
+		2. Click "Register" URL to get to registration browser
+		3. Fill all the inputs with valid information
+		4. Click the "Register" button
+	
+
+	Identity verification
+	- Input:
+		- Valid Verification code: e.g "432126"
+	Expected result: Email verifycation reads "Complete" and goes to step 2 Phone number verication.
+
+	-Test steps:
+		1. After submitting registration it leads you to identity verification browser
+		2. Go to your Email which you used earlier in the registration browser
+		3. Find the verification code
+		4. Type the verification code to the field input in the identity verification browser
+		5. Press the "Verify email address" button.
+	
+	
+		
+
+
+
+# Negative Test examples keywords are below write test process steps for each below test case 
+
+	Register user with same above username,
+	- Input Invalid username	David
+	Expected result: Error message reads that "username is taken."
+	-Test steps:
+		1. Input invalid username in the username field
+		2. Press "Register" button.
+
+	Register user with Empty username
+	- Input Username	Empty
+	Expected result: Error message reads that "Please create a username with only alphanumeric characters."
+	- Test steps:
+		1. Don't fill the username field
+		2. Press "Register" button.
+
+	Register user with invalid Email
+	- Input Email	Invalid_Email
+	Expected result: Error message reads that "Please provide a valid email address."
+
+	Register user with invalid password
+	- Input:
+		- Password	Empty
+		- Password	Invalid_password
+	Expected result: Error message reads that "Minimum length is 8 characters."
+
+	Verify user with wrong verification code
+	- Input	Vefication code		e.g "123456"
+	Expected result: Error message reads that "The code is incorrect. Enter it again, or send a new code."
+
+	Verify user with invalid verification code
+	- Input verification code	e.g "12345"
+	Expected result: Error message reads that "Enter a valid code."
+
+
